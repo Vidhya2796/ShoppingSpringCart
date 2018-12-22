@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" 
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd ">
+
+
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />
+		<property name="username" value="system" />
+		<property name="password" value="orcl11g" />
+	</bean>
+<bean id="jdbcTemp" class="org.springframework.jdbc.core.JdbcTemplate">  
+<property name="dataSource" ref="dataSource"></property>  
+</bean>
+
+	<!-- <bean id="product" class="com.shoppingcart.cartDAO.ProductDAO">
+		<property name="jdbcTemplate" ref="jdbcTemp"/>
+	</bean>
+	
+	<bean id="cart" class="com.shoppingcart.cartDAO.SampleTranscationDAO">
+		<property name="jdbcTemplate" ref="jdbcTemp"/>
+	</bean> -->
+	
+	<bean id="user" class="com.shoppingcart.cartDAO.UserDAO" >
+		<property name="jdbcTemplate" ref="jdbcTemp"/>
+	</bean>
+	
+	<bean id="product" class="com.shoppingcart.cartDAO.ProductDAO">
+		<property name="jdbcTemplate" ref="jdbcTemp"/>
+	</bean>
+	<bean id="cart" class="com.shoppingcart.cartDAO.UserTransactionDAO">
+		<property name="jdbcTemplate" ref="jdbcTemp"/>
+	</bean>
+	
+      <bean id="userService" class="com.shoppingcart.service.LoginService" autowire="byType">
+      <!-- 	<property name="userdao" ref="user"></property>
+       -->
+      </bean>
+
+
+<bean id="productService" class="com.shoppingcart.service.ProductService" autowire="byType">
+     
+      </bean>
+      
+      <bean id="cartService" class="com.shoppingcart.service.CartService" autowire="byType">
+     
+      </bean>
+      
+      
+</beans>
